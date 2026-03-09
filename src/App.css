@@ -1,0 +1,584 @@
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+/* Intro Screen */
+#intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 1s ease;
+}
+
+#intro h1 {
+  font-size: clamp(2rem, 8vw, 4rem);
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 20px;
+  max-width: 90%;
+  word-wrap: break-word;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  color: #ff6b6b;
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fireworks Canvas */
+#fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Main Page */
+#mainPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f0f1f);
+  animation: gradientShift 10s ease infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.title {
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  color: #fff;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-shadow: 
+    0 0 20px #ff6b6b,
+    0 0 40px #ff4757,
+    0 0 60px #ffa502;
+  animation: titleGlow 2s ease-in-out infinite;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 20;
+  padding: 0 20px;
+}
+
+@keyframes titleGlow {
+  0%, 100% { 
+    text-shadow: 0 0 20px #ff6b6b,
+                 0 0 40px #ff4757,
+                 0 0 60px #ffa502;
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 30px #ff4757,
+                 0 0 60px #ff6b6b,
+                 0 0 90px #ff9ff3;
+    transform: scale(1.02);
+  }
+}
+
+/* Gift Box */
+.gift {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  margin: 40px auto;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 30;
+  animation: giftFloat 3s ease-in-out infinite;
+}
+
+@keyframes giftFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.gift:hover {
+  transform: scale(1.1) translateY(-10px);
+  filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.7));
+}
+
+.gift-box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 85%;
+  background: linear-gradient(145deg, #ff6b6b, #ff4757);
+  border-radius: 15px 15px 25px 25px;
+  box-shadow: 
+    0 10px 0 #c0392b,
+    0 20px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.gift-lid {
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  width: 110%;
+  height: 25%;
+  background: linear-gradient(145deg, #ff9ff3, #ff6b6b);
+  border-radius: 20px 20px 5px 5px;
+  box-shadow: 
+    0 5px 0 #c0392b,
+    0 10px 20px rgba(0, 0, 0, 0.2);
+  transform-origin: bottom;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 2;
+}
+
+.gift.open .gift-lid {
+  transform: translateY(-120px) rotate(10deg);
+}
+
+.ribbon-vertical {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 100%;
+  background: linear-gradient(135deg, #feca57, #ff9f43);
+  box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.ribbon-horizontal {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(135deg, #feca57, #ff9f43);
+  box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.gift::before {
+  content: '🎁';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 30px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.gift:hover::before {
+  opacity: 1;
+  animation: bounce 0.5s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Cake */
+.cake {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin-top: 50px;
+  animation: cakeAppear 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 40;
+}
+
+@keyframes cakeAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.plate {
+  position: absolute;
+  bottom: -20px;
+  width: 350px;
+  height: 30px;
+  background: linear-gradient(145deg, #e0e0e0, #b0b0b0);
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 15px 15px 5px 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.layer-bottom {
+  bottom: 20px;
+  width: 280px;
+  height: 80px;
+  background: linear-gradient(145deg, #d4a5a5, #b5838d);
+}
+
+.layer-middle {
+  bottom: 90px;
+  width: 240px;
+  height: 70px;
+  background: linear-gradient(145deg, #e5989b, #c06c84);
+}
+
+.layer-top {
+  bottom: 150px;
+  width: 200px;
+  height: 60px;
+  background: linear-gradient(145deg, #ffb4a2, #e5989b);
+}
+
+.icing {
+  position: absolute;
+  bottom: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 20px;
+  background: linear-gradient(145deg, #ffe5d9, #ffd7ba);
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 -5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.candles {
+  position: absolute;
+  bottom: 210px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 200px;
+}
+
+.candle {
+  width: 15px;
+  height: 50px;
+  background: linear-gradient(145deg, #f8c291, #f5ab7e);
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  animation: candleFlicker 2s ease-in-out infinite;
+}
+
+@keyframes candleFlicker {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.05); }
+}
+
+.candle::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 20px;
+  background: linear-gradient(145deg, #ffd93e, #ffb347);
+  border-radius: 50% 50% 0 0;
+  animation: flameFlicker 0.3s ease-in-out infinite;
+  box-shadow: 0 0 20px #ff9f43;
+}
+
+@keyframes flameFlicker {
+  0%, 100% { 
+    transform: translateX(-50%) scale(1);
+    opacity: 0.9;
+  }
+  50% { 
+    transform: translateX(-50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
+.candle::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #fff5b0, #ffd93e);
+  border-radius: 50%;
+  filter: blur(3px);
+  animation: glowPulse 1s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.conf {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(45deg, #ff6b6b, #ffd93e, #6b5bff, #ff9ff3);
+  animation: elegantFall linear infinite;
+  pointer-events: none;
+  box-shadow: 0 0 10px currentColor;
+  border-radius: 2px;
+}
+
+@keyframes elegantFall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-50px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Music Hint */
+.music-hint {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  animation: pulse 2s ease-in-out infinite;
+  border: 1px solid rgba(255, 107, 107, 0.5);
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Birthday Rain */
+.birthday-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.rain-item {
+  position: absolute;
+  top: -50px;
+  font-size: 26px;
+  animation: rainFall linear infinite;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  user-select: none;
+}
+
+@keyframes rainFall {
+  0% {
+    transform: translateY(-50px) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* State Management */
+.gift.hide {
+  opacity: 0;
+  transform: translateY(120px) scale(0.7) rotate(10deg);
+  pointer-events: none;
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Sparkle Effect (optional - can be used for additional animations) */
+@keyframes sparkle {
+  0% { 
+    transform: scale(0) rotate(0deg); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: scale(1) rotate(180deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: scale(0) rotate(360deg); 
+    opacity: 0; 
+  }
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkle 1s ease-out forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gift {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .cake {
+    transform: scale(0.8);
+    margin-top: 30px;
+  }
+  
+  .music-hint {
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .rain-item {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cake {
+    transform: scale(0.6);
+    margin-top: 20px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 10px;
+  }
+  
+  .gift {
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+  }
+  
+  .music-hint {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+  
+  .rain-item {
+    font-size: 18px;
+  }
+}
+
+/* Performance Optimizations */
+#mainPage, #intro, #fireworks, .confetti, .birthday-rain {
+  will-change: transform, opacity;
+}
+
+/* Additional touch-friendly improvements */
+.gift:active {
+  transform: scale(0.95) translateY(-5px);
+}
+
+/* Smooth transitions */
+.gift, .cake, .title {
+  transition: all 0.3s ease;
+}
+
+/* Ensure content is centered on all screens */
+#mainPage {
+  text-align: center;
+  padding: 20px;
+}
