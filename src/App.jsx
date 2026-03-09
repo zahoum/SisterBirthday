@@ -22,7 +22,7 @@ const App = () => {
 
   const texts = [
     "Dear Sister... 💝",
-    "Happy 23rd Birthday! 🎉",
+    "Happy 23rd Birthday Khaoula Zahoum! 🎉",
     "Click the gift to reveal your surprise 🎁"
   ];
 
@@ -291,7 +291,7 @@ const App = () => {
 
         <div id="mainPage">
 
-          <h1 className="title">🎉 Happy Birthday Sister 🎉</h1>
+          <h1 className="title">🎉 Happy Birthday Sister Khaoula Zahoum🎉</h1>
 
           <div
             className={`gift ${giftOpen ? "open" : ""} ${hideGift ? "hide" : ""}`}
